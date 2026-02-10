@@ -1,0 +1,1 @@
+S:\src.editor\workspace\emx-txtar\target\debug\libemx_txtar.rlib: S:\src.editor\workspace\emx-txtar\src\archive.rs S:\src.editor\workspace\emx-txtar\src\decoder.rs S:\src.editor\workspace\emx-txtar\src\encoder.rs S:\src.editor\workspace\emx-txtar\src\lib.rs
