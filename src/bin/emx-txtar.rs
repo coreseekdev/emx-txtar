@@ -102,7 +102,7 @@ fn create_archive(inputs: Vec<PathBuf>, output: Option<PathBuf>, verbose: bool) 
                 .to_string_lossy()
                 .to_string();
 
-            archive.add_file(File::new(&name, content.clone()));
+            archive.add_file(File::new(&name, content.clone()))?;
 
             if verbose {
                 println!("Added: {} ({} bytes)", name, content.len());
@@ -145,7 +145,7 @@ fn add_directory(archive: &mut Archive, dir: &Path, verbose: bool) -> Result<()>
                 .map_err(|_| anyhow::anyhow!("Failed to get relative path"))?;
 
             let name = relative_path.to_string_lossy().replace('\\', "/");
-            archive.add_file(File::new(&name, content.clone()));
+            archive.add_file(File::new(&name, content.clone()))?;
 
             if verbose {
                 println!("Added: {} ({} bytes)", name, content.len());

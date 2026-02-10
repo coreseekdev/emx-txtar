@@ -450,13 +450,6 @@ impl SnippetRef {
             Ok(SnippetRef { command_href: None, line })
         }
     }
-
-    /// Legacy method for backward compatibility - returns None on parse failure
-    /// Use `parse()` instead for better error reporting
-    #[deprecated(note = "Use parse() for better error reporting")]
-    pub fn parse_legacy(input: &str) -> Option<Self> {
-        Self::parse(input).ok()
-    }
 }
 
 impl EditRef {
@@ -563,7 +556,7 @@ impl EditRef {
         &self,
         lines: Vec<Cow<'a, str>>,
         edit: &EditBlock,
-        edit_index: usize,
+        _edit_index: usize,
     ) -> Result<Vec<Cow<'a, str>>, EditApplyError> {
         match edit.operation {
             EditOperation::Replace => {
