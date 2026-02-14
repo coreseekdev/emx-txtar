@@ -342,6 +342,44 @@ Content"#;
     }
 
     #[test]
+    fn test_decode_comment_preserves_empty_lines() {
+        // Test that empty lines in comment section are preserved (for heredoc support)
+        let input = r#"#!/bin/bash
+cat << 'EOF'
+Hello
+
+World
+EOF
+
+-- file.txt --
+Content"#;
+
+        let decoder = Decoder::new();
+        let archive = decoder.decode(input).unwrap();
+
+        // Comment should preserve empty lines between Hello and World
+        assert!(archive.comment.contains("Hello\n\nWorld"));
+        assert_eq!(archive.files.len(), 1);
+    }
+
+    #[test]
+    fn test_decode_comment_multiple_consecutive_empty_lines() {
+        // Test multiple consecutive empty lines are preserved
+        let input = r#"Line 1
+
+
+Line 4
+-- file.txt --
+Content"#;
+
+        let decoder = Decoder::new();
+        let archive = decoder.decode(input).unwrap();
+
+        // Should have two consecutive empty lines between Line 1 and Line 4
+        assert!(archive.comment.contains("Line 1\n\n\nLine 4"));
+    }
+
+    #[test]
     fn test_decode_with_subdirectories() {
         let input = r#"-- dir/subdir/file.txt --
 Content"#;

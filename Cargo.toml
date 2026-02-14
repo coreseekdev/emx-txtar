@@ -21,5 +21,5 @@ walkdir = { version = "2.5", optional = true }
 tempfile = "3.12"
 
 [features]
-default = []
+default = ["cli"]
 cli = ["clap", "walkdir"]
