@@ -92,12 +92,11 @@ impl Decoder {
                 }
             } else {
                 // Before first file - this is comment
-                if !line.trim().is_empty() {
-                    if !archive.comment.is_empty() {
-                        archive.comment.push('\n');
-                    }
-                    archive.comment.push_str(line);
+                // Preserve empty lines for heredoc support in test scripts
+                if !archive.comment.is_empty() {
+                    archive.comment.push('\n');
                 }
+                archive.comment.push_str(line);
             }
         }
 
